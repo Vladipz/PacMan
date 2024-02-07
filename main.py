@@ -34,7 +34,7 @@ def draw_board(lvl):
 
 while run:
     timer.tick(fps)
-    screen.fill("black")
+    screen.fill("Red")
     draw_board(level)
 
     for event in pygame.event.get():
