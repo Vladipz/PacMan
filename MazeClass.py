@@ -5,7 +5,6 @@ import pygame
 import math
 
 
-
 PI = math.pi
 class Maze(object):
     def __init__(self, color,width, height, screen):
@@ -16,6 +15,7 @@ class Maze(object):
         self.screen = screen
         #TODO add ghost class
         #self.ghosts
+        self.flicker = bool
 
 
         self.isNormalMode = True
@@ -25,9 +25,10 @@ class Maze(object):
         num2 = (self.width // 30)
         for y in range(len(self.level)):  # висота num1
             for x in range(len(self.level[1])):  # ширина num2
+                #if self.level[y][x] == 0
                 if self.level[y][x] == 1:
                     pygame.draw.circle(self.screen, "white", (x * num2 + 0.5 * num2, y * num1 + 0.5 * num1), 2)
-                if self.level[y][x] == 2:
+                if self.level[y][x] == 2 and not self.flicker:
                     pygame.draw.circle(self.screen, "white", (x * num2 + 0.5 * num2, y * num1 + 0.5 * num1), 6)
                 if self.level[y][x] == 3:
                     pygame.draw.line(self.screen, self.color, (x * num2 + (0.5 * num2), y * num1),
