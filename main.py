@@ -5,8 +5,8 @@ import math
 from MazeClass import Maze
 
 pygame.init()
-width = 600  # хз який розмір ставити насправді
-height = 650
+width = 900
+height = 700
 screen = pygame.display.set_mode((width, height))
 timer = pygame.time.Clock()
 fps = 60
@@ -32,6 +32,7 @@ while run:
 
     screen.fill("black")
     maze.draw_board()
+    maze.draw_ghosts()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
