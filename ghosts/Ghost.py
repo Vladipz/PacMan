@@ -1,18 +1,17 @@
 from abc import ABC, abstractmethod
 import pygame
+from Movable import Movable
 
 
-class Ghost(ABC):
+class Ghost(Movable):
     def __init__(self, x, y, direction, image, player):
         self.x = x
         self.y = y
-        self.direction = direction
         self.image = image
         self.player = player
-        self.is_dead = False
-        self.is_box = False
         self.speed = 2
         self.powerup = False
+        super().__init__(x, y, False, False, direction)
         self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/inky.png'),
                                                   (40, 40))
 

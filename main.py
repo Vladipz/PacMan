@@ -6,7 +6,9 @@ from MazeClass import Maze
 
 pygame.init()
 width = 800
-height = 700
+height = 800
+width = 900
+height = 950
 screen = pygame.display.set_mode((width, height))
 timer = pygame.time.Clock()
 fps = 60

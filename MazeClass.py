@@ -13,7 +13,7 @@ PI = math.pi
 class Maze(object):
     def __init__(self, color, width, height, screen):
         self.level = boards
-        self.player = Player(0, 0, 3)
+        self.player = Player(450, 663, 3)
         self.width = width
         self.height = height
         self.screen = screen
@@ -64,6 +64,6 @@ class Maze(object):
 
     def draw_ghosts(self):
         for i in range(len(self.ghosts)):
-            print(self.ghosts[1].x, self.ghosts[1].y)
             self.ghosts[i].draw(self.screen)
+            self.ghosts[i].can_move(self.width, self.height)
             self.ghosts[i].move()
