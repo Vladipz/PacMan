@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import pygame
 
 
@@ -24,3 +24,6 @@ class Ghost(ABC):
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
         return ghost_rect
 
+    @abstractmethod
+    def move(self):
+        pass

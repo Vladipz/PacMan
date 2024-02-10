@@ -5,7 +5,7 @@ import math
 from MazeClass import Maze
 
 pygame.init()
-width = 900
+width = 800
 height = 700
 screen = pygame.display.set_mode((width, height))
 timer = pygame.time.Clock()
@@ -37,6 +37,6 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-        pygame.display.flip()
+    pygame.display.flip()
 
 pygame.quit()

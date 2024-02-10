@@ -64,4 +64,6 @@ class Maze(object):
 
     def draw_ghosts(self):
         for i in range(len(self.ghosts)):
+            print(self.ghosts[1].x, self.ghosts[1].y)
             self.ghosts[i].draw(self.screen)
+            self.ghosts[i].move()
