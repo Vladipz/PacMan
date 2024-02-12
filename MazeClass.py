@@ -13,7 +13,7 @@ PI = math.pi
 class Maze(object):
     def __init__(self, color, width, height, screen):
         self.level = boards
-        self.player = Player(450, 663, 3)
+        self.player = Player(450, 663, 3, 0)
         self.width = width
         self.height = height
         self.screen = screen
@@ -67,3 +67,22 @@ class Maze(object):
             self.ghosts[i].draw(self.screen)
             self.ghosts[i].can_move(self.width, self.height)
             self.ghosts[i].move()
+
+    def draw_player(self, counter):
+        # 0-RIGHT, 1-LEFT, 2-UP, 3-DOWN
+        direction = self.player.direction
+        player_images = self.player.player_images
+        player_x = self.player.x
+        player_y = self.player.y
+
+        if direction == 0:
+            self.screen.blit(player_images[counter % len(player_images)], (player_x, player_y))
+        elif direction == 1:
+            self.screen.blit(pygame.transform.flip(player_images[counter % len(player_images)], True, False),
+                             (player_x, player_y))
+        elif direction == 2:
+            self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 90),
+                             (player_x, player_y))
+        elif direction == 3:
+            self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
+                             (player_x, player_y))

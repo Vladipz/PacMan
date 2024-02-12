@@ -35,6 +35,7 @@ while run:
     screen.fill("black")
     maze.draw_board()
     maze.draw_ghosts()
+    maze.draw_player(counter)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
