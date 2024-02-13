@@ -37,6 +37,12 @@ while run:
     maze.draw_board()
     maze.draw_ghosts()
     maze.draw_player(counter)
+    player_x = maze.player.x
+    player_y = maze.player.y
+    center_x = player_x + 23
+    center_y = player_y + 24
+    turns_allowed = maze.check_position(center_x, center_y)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

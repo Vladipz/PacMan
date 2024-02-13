@@ -86,3 +86,53 @@ class Maze(object):
         elif direction == 3:
             self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
                              (player_x, player_y))
+
+
+    def check_position(self, center_x, center_y):
+        turns = [False, False, False, False]
+        num1 = (self.height - 50) // 32
+        num2 = (self.width // 30)
+        num3 = 15
+        # check collisions based on center x and center y of player +/- fudge number
+        if center_x // 30 < 29:
+            if self.player.direction == 0:
+                if self.level[center_y // num1][(center_x - num3) // num2] < 3:
+                    turns[1] = True
+            if self.player.direction == 1:
+                if self.level[center_y // num1][(center_x + num3) // num2] < 3:
+                    turns[0] = True
+            if self.player.direction == 2:
+                if self.level[(center_y + num3) // num1][center_x // num2] < 3:
+                    turns[3] = True
+            if self.player.direction == 3:
+                if self.level[(center_y - num3) // num1][center_x // num2] < 3:
+                    turns[2] = True
+
+            if self.player.direction == 2 or self.player.direction == 3:
+                if 12 <= center_x % num2 <= 18:
+                    if self.level[(center_y + num3) // num1][center_x // num2] < 3:
+                        turns[3] = True
+                    if self.level[(center_y - num3) // num1][center_x // num2] < 3:
+                        turns[2] = True
+                if 12 <= center_y % num1 <= 18:
+                    if self.level[center_y // num1][(center_x - num2) // num2] < 3:
+                        turns[1] = True
+                    if self.level[center_y // num1][(center_x + num2) // num2] < 3:
+                        turns[0] = True
+            if self.player.direction == 0 or self.player.direction == 1:
+                if 12 <= center_x % num2 <= 18:
+                    if self.level[(center_y + num1) // num1][center_x // num2] < 3:
+                        turns[3] = True
+                    if self.level[(center_y - num1) // num1][center_x // num2] < 3:
+                        turns[2] = True
+                if 12 <= center_y % num1 <= 18:
+                    if self.level[center_y // num1][(center_x - num3) // num2] < 3:
+                        turns[1] = True
+                    if self.level[center_y // num1][(center_x + num3) // num2] < 3:
+                        turns[0] = True
+        else:
+            turns[0] = True
+            turns[1] = True
+
+        return turns
+
