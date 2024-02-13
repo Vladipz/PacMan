@@ -13,3 +13,25 @@ class Player(object):
         self.hitbox = (self.x, self.y, 45, 45)
         for i in range(1, 5):
             self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
+
+    def hit(self):
+        '''
+        This function is called when the player is hit by the ghost
+        :return:
+        '''
+
+        self.x = 450
+        self.y = 663
+        self.lives_count -= 1
+        if self.lives_count < 1:
+            #game ends
+            pass
+        else:
+            i = 0
+            while i < 100:
+                pygame.time.delay(10)
+                i += 1
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        i = 301
+                        pygame.quit()

@@ -34,6 +34,11 @@ class Ghost(Movable):
 
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
         return ghost_rect
+    def hit(self):
+        '''
+        This function is called when the ghost is hit by the player
+        :return:
+        '''
 
     @abstractmethod
     def move(self):
