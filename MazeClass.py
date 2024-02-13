@@ -147,5 +147,5 @@ class Maze(object):
             self.player.y -= player_speed
         elif direction == 3 and turns_allowed[3]:
             self.player.y += player_speed
-        self.player.hitbox = (self.player.x, self.player.y, 45, 45)
+        self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
