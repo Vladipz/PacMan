@@ -22,15 +22,30 @@ player = Player.Player(450, 663, 3, 0, 2)
 
 maze = Maze("blue", width, height, screen, player)
 
+
+
 while run:
     timer.tick(fps)
-    if counter <19:
+
+
+
+    if counter < 19:
         counter += 1
         if counter > 3:
             maze.flicker = False
     else:
         counter = 0
         maze.flicker = True
+
+    # # Перевірка колізій між гравцем та привидами
+    # if pygame.sprite.spritecollide(maze.player, maze.ghosts, False):
+    #     player.hit()
+
+    for ghost in maze.ghosts:
+        if maze.player.hitbox.colliderect(ghost.hitbox):
+            maze.player.hit(screen)
+            break
+
 
     screen.fill("black")
     maze.draw_board()

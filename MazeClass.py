@@ -86,7 +86,7 @@ class Maze(object):
         elif direction == 3:
             self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
                              (player_x, player_y))
-
+        pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 2)
     def check_position(self, center_x, center_y):
         turns = [False, False, False, False]
         num1 = (self.height - 50) // 32
@@ -147,4 +147,5 @@ class Maze(object):
             self.player.y -= player_speed
         elif direction == 3 and turns_allowed[3]:
             self.player.y += player_speed
+        self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
