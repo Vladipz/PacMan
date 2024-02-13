@@ -24,7 +24,7 @@ maze = Maze("blue", width, height, screen)
 
 while run:
     timer.tick(fps)
-    if counter < 19:
+    if counter <19:
         counter += 1
         if counter > 3:
             maze.flicker = False
