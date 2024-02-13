@@ -11,9 +11,9 @@ PI = math.pi
 
 
 class Maze(object):
-    def __init__(self, color, width, height, screen):
+    def __init__(self, color, width, height, screen, player):
         self.level = boards
-        self.player = Player(450, 663, 3, 0)
+        self.player = player
         self.width = width
         self.height = height
         self.screen = screen
