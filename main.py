@@ -5,8 +5,6 @@ import math
 from MazeClass import Maze
 
 pygame.init()
-width = 800
-height = 800
 width = 900
 height = 950
 screen = pygame.display.set_mode((width, height))
@@ -15,7 +13,6 @@ fps = 60
 PI = math.pi
 level = boards
 color = "blue"
-
 counter = 0
 
 
@@ -39,7 +36,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                maze.player.direction = 0
+            if event.key == pygame.K_LEFT:
+                maze.player.direction = 1
+            if event.key == pygame.K_UP:
+                maze.player.direction = 2
+            if event.key == pygame.K_DOWN:
+                maze.player.direction = 3
     pygame.display.flip()
 
 pygame.quit()
