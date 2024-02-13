@@ -87,7 +87,6 @@ class Maze(object):
             self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
                              (player_x, player_y))
 
-
     def check_position(self, center_x, center_y):
         turns = [False, False, False, False]
         num1 = (self.height - 50) // 32
@@ -136,3 +135,16 @@ class Maze(object):
 
         return turns
 
+    def move_player(self, turns_allowed):
+        player_speed = self.player.player_speed
+        direction = self.player.direction
+
+        if direction == 0 and turns_allowed[0]:
+            self.player.x += player_speed
+        elif direction == 1 and turns_allowed[1]:
+            self.player.x -= player_speed
+        if direction == 2 and turns_allowed[2]:
+            self.player.y -= player_speed
+        elif direction == 3 and turns_allowed[3]:
+            self.player.y += player_speed
+        return self.player.x, self.player.y

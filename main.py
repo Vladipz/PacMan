@@ -20,7 +20,6 @@ direction_command = 0
 run = True
 player = Player.Player(450, 663, 3, 0, 2)
 
-# Створюємо поле гри (мазею)
 maze = Maze("blue", width, height, screen, player)
 
 while run:
@@ -42,6 +41,7 @@ while run:
     center_x = player_x + 23
     center_y = player_y + 24
     turns_allowed = maze.check_position(center_x, center_y)
+    player_x, player_y = maze.move_player(turns_allowed)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
