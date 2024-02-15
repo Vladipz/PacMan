@@ -16,7 +16,7 @@ color = "blue"
 counter = 0
 turns_allowed = [False, False, False, False]
 direction_command = 0
-
+score=0
 run = True
 player = Player.Player(450, 663, 3, 0, 2)
 
@@ -57,7 +57,7 @@ while run:
     center_y = player_y + 24
     turns_allowed = maze.check_position(center_x, center_y)
     player_x, player_y = maze.move_player(turns_allowed)
-
+    maze.check_collisions(scor=score, center_x= center_x, center_y= center_y)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

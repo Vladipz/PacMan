@@ -149,3 +149,15 @@ class Maze(object):
             self.player.y += player_speed
         self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
+
+    def check_collisions(self, scor, center_x, center_y):
+        num1 = (self.height - 50) // 32
+        num2 = self.width // 30
+        if 0 < self.player.x < 870:
+            if self.level[center_y // num1][center_x // num2] == 1:
+                self.level[center_y // num1][center_x // num2] = 0
+                scor += 10
+            if self.level[center_y // num1][center_x // num2] == 2:
+                self.level[center_y // num1][center_x // num2] = 0
+                scor += 50
+        return scor
