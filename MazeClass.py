@@ -6,11 +6,12 @@ from ghosts.Inky import Inky
 from ghosts.Pinky import Pinky
 import pygame
 import math
+from Observable import Observable
 
 PI = math.pi
 
 
-class Maze(object):
+class Maze(Observable):
     def __init__(self, color, width, height, screen):
         self.player = Player(450, 663, 3, 0, 2, self)
         self.level = boards
@@ -24,6 +25,10 @@ class Maze(object):
 
         self.isNormalMode = True
         self.color = color
+
+    def register_ghosts_observers(self):
+        for i in range(len(self.ghosts)):
+            self.register_observer(self.ghosts[i])
 
     def draw_board(self):
         num1 = ((self.height - 50) // 32)
@@ -150,3 +155,29 @@ class Maze(object):
             self.player.y += player_speed
         self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
+
+    def check_collisions(self, score, center_x, center_y, power,power_count, eaten_ghosts):
+        num1 = (self.height - 50) // 32
+        num2 = self.width // 30
+        if 0 < self.player.x < 870:
+            if self.level[center_y // num1][center_x // num2] == 1:
+                self.level[center_y // num1][center_x // num2] = 0
+                score += 10
+            if self.level[center_y // num1][center_x // num2] == 2:
+                self.level[center_y // num1][center_x // num2] = 0
+                score += 50
+                power = True
+                power_count = 0
+                self.notify(power)
+                eaten_ghosts = [False, False, False, False]
+        return score, power, power_count, eaten_ghosts
+
+    def draw_misc(self, score, power):
+        font = pygame.font.Font(None, 36)  # створюємо об'єкт шрифту
+        score_text = font.render(f'Score: {score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
+        self.screen.blit(score_text, (10, 920))  # відображаємо текст на екрані
+        if power:
+            pygame.draw.circle(self.screen, 'blue', (140, 930), 15)
+        for i in range(self.player.lives_count):
+            self.screen.blit(pygame.transform.scale(self.player.player_images[0], (30,30)), (650+i*40, 915))
+

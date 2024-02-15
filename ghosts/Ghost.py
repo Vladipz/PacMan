@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 import pygame
 from board import boards
+from Observer import Observer
 
 
-class Ghost(ABC):
+class Ghost(Observer, ABC):
     def __init__(self, x, y, direction, image, player):
         self.x = x
         self.y = y
@@ -20,7 +21,8 @@ class Ghost(ABC):
         self.in_box = False
         self.is_dead = False
         self.direction = direction
-        self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/inky.png'),
+        self.powerup = False
+        self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/powerup.png'),
                                                   (40, 40))
 
     def can_move(self, width, height):
@@ -54,7 +56,10 @@ class Ghost(ABC):
             self.in_box = True
         else:
             self.in_box = False
-        # self.turns = [True, False, False, False]
+
+    def update(self, powerup):
+        self.powerup = powerup
+        self.image = self.powerup_img
 
     def draw(self, screen):
         '''
