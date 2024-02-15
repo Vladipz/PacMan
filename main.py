@@ -57,7 +57,8 @@ while run:
     center_y = player_y + 24
     turns_allowed = maze.check_position(center_x, center_y)
     player_x, player_y = maze.move_player(turns_allowed)
-    maze.check_collisions(scor=score, center_x= center_x, center_y= center_y)
+    score = maze.check_collisions(scorе=score, center_x= center_x, center_y= center_y)
+    maze.draw_misc(score)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
