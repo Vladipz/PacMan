@@ -9,6 +9,10 @@ class Clyde(Ghost):
         super().__init__(440, 338, 2, image, player)
         # super().__init__(170, 200, 2, image, player)
 
+    def hit(self):
+        self.x = 440
+        self.y = 338
+
     def move(self):
         if self.direction == 0:
             if self.player.x > self.x and self.turns[0]:

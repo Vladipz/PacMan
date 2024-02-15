@@ -18,16 +18,11 @@ turns_allowed = [False, False, False, False]
 direction_command = 0
 
 run = True
-player = Player.Player(450, 663, 3, 0, 2)
 
-maze = Maze("blue", width, height, screen, player)
-
-
+maze = Maze("blue", width, height, screen)
 
 while run:
     timer.tick(fps)
-
-
 
     if counter < 19:
         counter += 1
@@ -45,7 +40,6 @@ while run:
         if maze.player.hitbox.colliderect(ghost.hitbox):
             maze.player.hit(screen)
             break
-
 
     screen.fill("black")
     maze.draw_board()
