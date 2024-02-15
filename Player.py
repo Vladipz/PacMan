@@ -1,9 +1,11 @@
 import pygame.transform
 import pygame
-#from main import width, height
+
+
+# from main import width, height
 
 class Player(object):
-    def __init__(self, x, y, lives_count, direction, player_speed):
+    def __init__(self, x, y, lives_count, direction, player_speed, maze):
         self.x = x
         self.y = y
         self.lives_count = lives_count
@@ -11,6 +13,7 @@ class Player(object):
         self.player_speed = player_speed
         self.player_images = []
         self.hitbox = pygame.Rect(self.x, self.y, 45, 45)
+        self.maze = maze
         for i in range(1, 5):
             self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
 
@@ -22,9 +25,11 @@ class Player(object):
 
         self.x = 450
         self.y = 663
+        for i in range(len(self.maze.ghosts)):
+            self.maze.ghosts[i].hit()
         self.lives_count -= 1
         if self.lives_count < 1:
-            #game ends
+            # game ends
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Game Over', 1, (255, 0, 0))
             text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_width() / 2))
@@ -40,7 +45,7 @@ class Player(object):
                         i = 301
                         pygame.quit()
 
-            #TODO потім поміняти на початок нової гри
+            # TODO потім поміняти на початок нової гри
             self.lives_count = 3
 
         else:

@@ -8,6 +8,10 @@ class Blinky(Ghost):
                                        (40, 40))
         super().__init__(56, 58, 0, image, player)
 
+    def hit(self):
+        self.x = 56
+        self.y = 58
+
     def move(self):
         if self.direction == 0:
             if self.player.x > self.x and self.turns[0]:

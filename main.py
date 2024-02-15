@@ -23,9 +23,8 @@ eaten_ghosts = [False, False, False, False]
 moving = False
 startup_counter = 0
 run = True
-player = Player.Player(450, 663, 3, 0, 2)
 
-maze = Maze("blue", width, height, screen, player)
+maze = Maze("blue", width, height, screen)
 
 while run:
     timer.tick(fps)

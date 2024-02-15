@@ -8,6 +8,10 @@ class Inky(Ghost):
                                        (40, 40))
         super().__init__(440, 388, 2, image, player)
 
+    def hit(self):
+        self.x = 440
+        self.y = 338
+
     def move(self):
         if self.direction == 0:
             if self.player.x > self.x and self.turns[0]:

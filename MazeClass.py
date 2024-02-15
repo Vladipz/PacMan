@@ -11,9 +11,9 @@ PI = math.pi
 
 
 class Maze(object):
-    def __init__(self, color, width, height, screen, player):
+    def __init__(self, color, width, height, screen):
+        self.player = Player(450, 663, 3, 0, 2, self)
         self.level = boards
-        self.player = player
         self.width = width
         self.height = height
         self.screen = screen
@@ -87,6 +87,7 @@ class Maze(object):
             self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
                              (player_x, player_y))
         pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 2)
+
     def check_position(self, center_x, center_y):
         turns = [False, False, False, False]
         num1 = (self.height - 50) // 32
@@ -173,3 +174,4 @@ class Maze(object):
             pygame.draw.circle(self.screen, 'blue', (140, 930), 15)
         for i in range(self.player.lives_count):
             self.screen.blit(pygame.transform.scale(self.player.player_images[0], (30,30)), (650+i*40, 915))
+
