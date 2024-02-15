@@ -16,18 +16,19 @@ color = "blue"
 counter = 0
 turns_allowed = [False, False, False, False]
 direction_command = 0
-score=0
+score = 0
+power = False
+power_counter = 0
+eaten_ghosts = [False, False, False, False]
+moving = False
+startup_counter = 0
 run = True
 player = Player.Player(450, 663, 3, 0, 2)
 
 maze = Maze("blue", width, height, screen, player)
 
-
-
 while run:
     timer.tick(fps)
-
-
 
     if counter < 19:
         counter += 1
@@ -36,7 +37,17 @@ while run:
     else:
         counter = 0
         maze.flicker = True
-
+    if power and power_counter <600:
+        power_counter+=1
+    elif power and power_counter >= 600:
+        power_counter=0
+        power=False
+        eaten_ghosts = [False, False, False, False]
+    if startup_counter<180:
+        moving=False
+        startup_counter+=1
+    else:
+        moving=True
     # # Перевірка колізій між гравцем та привидами
     # if pygame.sprite.spritecollide(maze.player, maze.ghosts, False):
     #     player.hit()
@@ -45,7 +56,6 @@ while run:
         if maze.player.hitbox.colliderect(ghost.hitbox):
             maze.player.hit(screen)
             break
-
 
     screen.fill("black")
     maze.draw_board()
@@ -56,9 +66,11 @@ while run:
     center_x = player_x + 23
     center_y = player_y + 24
     turns_allowed = maze.check_position(center_x, center_y)
-    player_x, player_y = maze.move_player(turns_allowed)
-    score = maze.check_collisions(scorе=score, center_x= center_x, center_y= center_y)
-    maze.draw_misc(score)
+    if moving:
+        player_x, player_y = maze.move_player(turns_allowed)
+    score, power, power_counter, eaten_ghosts = maze.check_collisions(score, center_x=center_x, center_y=center_y, power=power, power_count=power_counter,
+                                  eaten_ghosts=eaten_ghosts)
+    maze.draw_misc(score, power=power)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

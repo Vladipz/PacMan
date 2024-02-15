@@ -150,19 +150,26 @@ class Maze(object):
         self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
 
-    def check_collisions(self, scorе, center_x, center_y):
+    def check_collisions(self, score, center_x, center_y, power,power_count, eaten_ghosts):
         num1 = (self.height - 50) // 32
         num2 = self.width // 30
         if 0 < self.player.x < 870:
             if self.level[center_y // num1][center_x // num2] == 1:
                 self.level[center_y // num1][center_x // num2] = 0
-                scorе += 10
+                score += 10
             if self.level[center_y // num1][center_x // num2] == 2:
                 self.level[center_y // num1][center_x // num2] = 0
-                scorе += 50
-        return scorе
+                score += 50
+                power = True
+                power_count = 0
+                eaten_ghosts = [False, False, False, False]
+        return score, power, power_count, eaten_ghosts
 
-    def draw_misc(self, score):
+    def draw_misc(self, score, power):
         font = pygame.font.Font(None, 36)  # створюємо об'єкт шрифту
         score_text = font.render(f'Score: {score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
         self.screen.blit(score_text, (10, 920))  # відображаємо текст на екрані
+        if power:
+            pygame.draw.circle(self.screen, 'blue', (140, 930), 15)
+        for i in range(self.player.lives_count):
+            self.screen.blit(pygame.transform.scale(self.player.player_images[0], (30,30)), (650+i*40, 915))
