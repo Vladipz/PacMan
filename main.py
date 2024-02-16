@@ -3,11 +3,17 @@ from board import boards
 import math
 import Player
 from MazeClass import Maze
+from pygame.locals import *
 
 pygame.init()
 width = 900
 height = 950
-screen = pygame.display.set_mode((width, height))
+
+
+small_screen = pygame.display.set_mode((width, height), HWSURFACE | DOUBLEBUF | RESIZABLE)
+screen = small_screen.copy()
+
+
 timer = pygame.time.Clock()
 fps = 60
 PI = math.pi
@@ -60,6 +66,9 @@ while run:
     maze.draw_board()
     maze.draw_ghosts()
     maze.draw_player(counter)
+
+    small_screen.blit(pygame.transform.scale(screen, small_screen.get_rect().size), (0, 0))
+
     player_x = maze.player.x
     player_y = maze.player.y
     center_x = player_x + 23
@@ -73,6 +82,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        elif event.type == VIDEORESIZE:
+            old_width, old_height = screen.get_size()
+            new_width, new_height = event.size
+            ratio = old_width / old_height
+            if new_width > new_height:
+                new_width = int(new_height * ratio)
+            else:
+                new_height = int(new_width / ratio)
+            small_screen = pygame.display.set_mode((new_width, new_height), HWSURFACE | DOUBLEBUF | RESIZABLE)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
                 direction_command = 0
