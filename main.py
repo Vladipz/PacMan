@@ -64,10 +64,10 @@ while run:
     player_y = maze.player.y
     center_x = player_x + 23
     center_y = player_y + 24
-    turns_allowed = maze.check_position(center_x, center_y)
+    turns_allowed = maze.player.check_position(center_x=center_x, center_y=center_y)
     if moving:
-        player_x, player_y = maze.move_player(turns_allowed)
-    score, power, power_counter, eaten_ghosts = maze.check_collisions(score, center_x=center_x, center_y=center_y, power=power, power_count=power_counter,
+        player_x, player_y = maze.player.move_player(turns_allowed)
+    score, power, power_counter, eaten_ghosts = maze.player.check_collisions(score, center_x=center_x, center_y=center_y, power=power, power_count=power_counter,
                                   eaten_ghosts=eaten_ghosts)
     maze.draw_misc(score, power=power)
     for event in pygame.event.get():
