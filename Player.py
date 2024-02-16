@@ -17,7 +17,7 @@ class Player(object):
         for i in range(1, 5):
             self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
 
-    def hit(self, screen: pygame.Surface):
+    def hit(self):
         '''
         This function is called when the player is hit by the ghost
         :return:
@@ -29,6 +29,7 @@ class Player(object):
             self.maze.ghosts[i].hit()
         self.lives_count -= 1
         if self.lives_count < 1:
+            screen = pygame.display.get_surface()
             # game ends
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Game Over', 1, (255, 0, 0))

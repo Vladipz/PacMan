@@ -59,7 +59,7 @@ while run:
 
     for ghost in maze.ghosts:
         if maze.player.hitbox.colliderect(ghost.hitbox):
-            maze.player.hit(screen)
+            maze.player.hit()
             break
 
     screen.fill("black")
