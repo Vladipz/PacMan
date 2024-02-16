@@ -66,7 +66,7 @@ while run:
     maze.draw_board()
     maze.draw_ghosts()
     maze.draw_player(counter)
-
+    maze.draw_misc(score, power=power)
     small_screen.blit(pygame.transform.scale(screen, small_screen.get_rect().size), (0, 0))
 
     player_x = maze.player.x
@@ -78,7 +78,7 @@ while run:
         player_x, player_y = maze.move_player(turns_allowed)
     score, power, power_counter, eaten_ghosts = maze.check_collisions(score, center_x=center_x, center_y=center_y, power=power, power_count=power_counter,
                                   eaten_ghosts=eaten_ghosts)
-    maze.draw_misc(score, power=power)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
