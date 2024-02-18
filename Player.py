@@ -28,33 +28,12 @@ class Player(object):
         for i in range(len(self.maze.ghosts)):
             self.maze.ghosts[i].hit()
         self.lives_count -= 1
-        if self.lives_count < 1:
-            screen = pygame.display.get_surface()
-            # game ends
-            font1 = pygame.font.SysFont('comicsans', 100)
-            text = font1.render('Game Over', 1, (255, 0, 0))
-            text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_width() / 2))
-            screen.blit(text, text_rect)
-            pygame.display.flip()
 
-            i = 0
-            while i < 300:
-                pygame.time.delay(10)
-                i += 1
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        i = 301
-                        pygame.quit()
-
-            # TODO потім поміняти на початок нової гри
-            self.lives_count = 3
-
-        else:
-            i = 0
-            while i < 100:
-                pygame.time.delay(10)
-                i += 1
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        i = 301
-                        pygame.quit()
+        i = 0
+        while i < 100:
+            pygame.time.delay(10)
+            i += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    i = 301
+                    pygame.quit()

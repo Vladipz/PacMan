@@ -1,3 +1,5 @@
+import copy
+
 from Player import Player
 from board import boards
 from ghosts.Blinky import Blinky
@@ -13,7 +15,7 @@ PI = math.pi
 class Maze(object):
     def __init__(self, color, width, height, screen):
         self.player = Player(450, 663, 3, 0, 2, self)
-        self.level = boards
+        self.level = copy.deepcopy(boards)
         self.width = width
         self.height = height
         self.screen = screen
