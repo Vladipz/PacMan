@@ -2,7 +2,7 @@ import pygame
 from settings import *
 from pygame.locals import *
 from board import boards
-from MazeClass import Maze
+from maze import Maze
 
 
 class Game():
