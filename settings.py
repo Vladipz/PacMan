@@ -1,5 +1,4 @@
-
-from math import  pi
+from math import pi
 
 width = 900
 height = 950
