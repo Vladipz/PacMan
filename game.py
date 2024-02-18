@@ -52,7 +52,7 @@ class Game():
             self.timer.tick(fps)
 
             if counter < 19:
-                counter += 1
+                counter += 0.3
                 if counter > 3:
                     maze.flicker = False
             else:
@@ -81,7 +81,7 @@ class Game():
             self.screen.fill("black")
             maze.draw_board()
             maze.draw_ghosts()
-            maze.draw_player(counter)
+            maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
