@@ -5,10 +5,9 @@ from Observer import Observer
 
 
 class Ghost(Observer, ABC):
-    def __init__(self, x, y, direction, image, player):
+    def __init__(self, x, y, direction, image, player, powerup_player):
         self.x = x
         self.y = y
-        self.image = image
         self.player = player
         self.speed = 2
         self.powerup = False
@@ -22,8 +21,11 @@ class Ghost(Observer, ABC):
         self.is_dead = False
         self.direction = direction
         self.powerup = False
+        self.powerup_player = powerup_player
+        self.normal_img = image
         self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/powerup.png'),
                                                   (40, 40))
+        self.image = self.normal_img
 
     def can_move(self, width, height):
         num1 = ((height - 50) // 32)
@@ -79,13 +81,19 @@ class Ghost(Observer, ABC):
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
         return ghost_rect
 
+    def choose_target(self):
+        if self.powerup:
+            return self.powerup_player
+        else: return self.player
+
     @abstractmethod
     def hit(self):
         '''
         This function is called when the ghost is hit by the player
         :return:
         '''
-        pass
+        self.powerup = False
+        self.image = self.normal_img
 
     @abstractmethod
     def move(self):
