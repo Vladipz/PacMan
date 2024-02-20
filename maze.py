@@ -1,6 +1,6 @@
 import copy
 
-from player import Player
+from Player import Player
 from board import boards
 from ghosts.Blinky import Blinky
 from ghosts.Clyde import Clyde
