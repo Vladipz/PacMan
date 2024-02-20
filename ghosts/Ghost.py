@@ -62,6 +62,8 @@ class Ghost(Observer, ABC):
     def update(self, powerup):
         self.powerup = powerup
         self.image = self.powerup_img
+        print(self.powerup, self.image)
+
 
     def draw(self, screen):
         '''

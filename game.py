@@ -46,7 +46,7 @@ class Game():
 
         run = True
 
-        maze = Maze("blue", width, height, self.screen)
+        maze.register_ghosts_observers()
 
         while run:
             self.timer.tick(fps)
@@ -75,7 +75,10 @@ class Game():
 
             for ghost in maze.ghosts:
                 if maze.player.hitbox.colliderect(ghost.hitbox):
-                    maze.player.hit()
+                    if ghost.powerup:
+                        ghost.hit()
+                    else:
+                        maze.player.hit(self.screen)
                     break
 
             self.screen.fill("black")

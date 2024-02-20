@@ -171,6 +171,7 @@ class Maze(Observable):
                 power = True
                 power_count = 0
                 self.notify(power)
+                print(self.observers)
                 eaten_ghosts = [False, False, False, False]
         return score, power, power_count, eaten_ghosts
 
