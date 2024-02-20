@@ -8,11 +8,12 @@ from ghosts.Inky import Inky
 from ghosts.Pinky import Pinky
 import pygame
 import math
+from Observable import Observable
 
 PI = math.pi
 
 
-class Maze(object):
+class Maze(Observable):
     def __init__(self, color, width, height, screen):
         self.player = Player(450, 663, 3, 0, 2, self)
         self.level = copy.deepcopy(boards)
@@ -26,6 +27,10 @@ class Maze(object):
 
         self.isNormalMode = True
         self.color = color
+
+    def register_ghosts_observers(self):
+        for i in range(len(self.ghosts)):
+            self.register_observer(self.ghosts[i])
 
     def draw_board(self):
         num1 = ((self.height - 50) // 32)
@@ -165,6 +170,7 @@ class Maze(object):
                 score += 50
                 power = True
                 power_count = 0
+                self.notify(power)
                 eaten_ghosts = [False, False, False, False]
         return score, power, power_count, eaten_ghosts
 

@@ -17,7 +17,7 @@ class Player(object):
         for i in range(1, 5):
             self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
 
-    def hit(self):
+    def hit(self, screen: pygame.Surface):
         '''
         This function is called when the player is hit by the ghost
         :return:

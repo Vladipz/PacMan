@@ -1,4 +1,6 @@
 import pygame
+
+from Player import Player
 from ghosts.Ghost import Ghost
 
 
@@ -6,24 +8,26 @@ class Pinky(Ghost):
     def __init__(self, player):
         image = pygame.transform.scale(pygame.image.load('images/ghosts/pinky.png'),
                                        (40, 40))
-        super().__init__(440, 338, 2, image, player)
+        super().__init__(440, 338, 2, image, player, Player(800, 950, 0, 0, 0, None))
 
     def hit(self):
+        super().hit()
         self.x = 440
         self.y = 338
 
     def move(self):
+        player = self.choose_target()
         if self.direction == 0:
-            if self.player.x > self.x and self.turns[0]:
+            if player.x > self.x and self.turns[0]:
                 self.x += self.speed
             elif not self.turns[0]:
-                if self.player.y > self.y and self.turns[3]:
+                if player.y > self.y and self.turns[3]:
                     self.direction = 3
                     self.y += self.speed
-                elif self.player.y < self.y and self.turns[2]:
+                elif player.y < self.y and self.turns[2]:
                     self.direction = 2
                     self.y -= self.speed
-                elif self.player.x < self.x and self.turns[1]:
+                elif player.x < self.x and self.turns[1]:
                     self.direction = 1
                     self.x -= self.speed
                 elif self.turns[3]:
@@ -38,18 +42,18 @@ class Pinky(Ghost):
             elif self.turns[0]:
                 self.x += self.speed
         elif self.direction == 1:
-            if self.player.y > self.y and self.turns[3]:
+            if player.y > self.y and self.turns[3]:
                 self.direction = 3
-            elif self.player.x < self.x and self.turns[1]:
+            elif player.x < self.x and self.turns[1]:
                 self.x -= self.speed
             elif not self.turns[1]:
-                if self.player.y > self.y and self.turns[3]:
+                if player.y > self.y and self.turns[3]:
                     self.direction = 3
                     self.y += self.speed
-                elif self.player.y < self.y and self.turns[2]:
+                elif player.y < self.y and self.turns[2]:
                     self.direction = 2
                     self.y -= self.speed
-                elif self.player.x > self.y and self.turns[0]:
+                elif player.x > self.y and self.turns[0]:
                     self.direction = 0
                     self.x += self.speed
                 elif self.turns[3]:
@@ -64,20 +68,20 @@ class Pinky(Ghost):
             elif self.turns[1]:
                 self.x -= self.speed
         elif self.direction == 2:
-            if self.player.x < self.x and self.turns[1]:
+            if player.x < self.x and self.turns[1]:
                 self.direction = 1
                 self.x -= self.speed
-            elif self.player.y < self.y and self.turns[2]:
+            elif player.y < self.y and self.turns[2]:
                 self.direction = 2
                 self.y -= self.speed
             elif not self.turns[2]:
-                if self.player.x > self.x and self.turns[0]:
+                if player.x > self.x and self.turns[0]:
                     self.direction = 0
                     self.x += self.speed
-                elif self.player.x < self.x and self.turns[1]:
+                elif player.x < self.x and self.turns[1]:
                     self.direction = 1
                     self.x -= self.speed
-                elif self.player.y > self.y and self.turns[3]:
+                elif player.y > self.y and self.turns[3]:
                     self.direction = 3
                     self.y += self.speed
                 elif self.turns[1]:
@@ -90,25 +94,25 @@ class Pinky(Ghost):
                     self.direction = 0
                     self.x += self.speed
             elif self.turns[2]:
-                if self.player.x > self.x and self.turns[0]:
+                if player.x > self.x and self.turns[0]:
                     self.direction = 0
                     self.x += self.speed
-                elif self.player.x < self.x and self.turns[1]:
+                elif player.x < self.x and self.turns[1]:
                     self.direction = 1
                     self.x -= self.speed
                 else:
                     self.y -= self.speed
         elif self.direction == 3:
-            if self.player.y > self.y and self.turns[3]:
+            if player.y > self.y and self.turns[3]:
                 self.y += self.speed
             elif not self.turns[3]:
-                if self.player.x > self.x and self.turns[0]:
+                if player.x > self.x and self.turns[0]:
                     self.direction = 0
                     self.x += self.speed
-                elif self.player.x < self.x and self.turns[1]:
+                elif player.x < self.x and self.turns[1]:
                     self.direction = 1
                     self.x -= self.speed
-                elif self.player.y < self.y and self.turns[2]:
+                elif player.y < self.y and self.turns[2]:
                     self.direction = 2
                     self.y -= self.speed
                 elif self.turns[2]:
@@ -121,10 +125,10 @@ class Pinky(Ghost):
                     self.direction = 0
                     self.x += self.speed
             elif self.turns[3]:
-                if self.player.x > self.x and self.turns[0]:
+                if player.x > self.x and self.turns[0]:
                     self.direction = 0
                     self.x += self.speed
-                elif self.player.x < self.x and self.turns[1]:
+                elif player.x < self.x and self.turns[1]:
                     self.direction = 1
                     self.x -= self.speed
                 else:
