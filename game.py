@@ -81,6 +81,11 @@ class Game():
                         maze.player.hit(self.screen)
                     break
 
+            for bonus in maze.bonuses:
+                if maze.player.hitbox.colliderect(bonus.hitbox):
+                    bonus.hit()
+                    maze.bonuses.remove(bonus)
+                    break
 
 
 

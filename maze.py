@@ -11,7 +11,9 @@ import pygame
 import math
 from Observable import Observable
 import numpy as np
+
 PI = math.pi
+from bonuses.heart import Heart
 
 
 class Maze(Observable):
@@ -30,6 +32,8 @@ class Maze(Observable):
         self.color = color
         self.count_of_points = self.check_point_on_board()
         self.isHeartSpawned = False
+        self.bonuses = []
+
     def check_point_on_board(self):
         '''
         Перевіряє чи є точка на полі
@@ -41,6 +45,7 @@ class Maze(Observable):
                 if self.level[y][x] == 1 or self.level[y][x] == 2:
                     counter += 1
         return counter
+
     def find_coordinates_for_health(self):
         '''
         Знаходить координати для серця
@@ -48,26 +53,32 @@ class Maze(Observable):
         '''
         coordinates = [(i, j) for i, row in enumerate(self.level) for j, val in enumerate(row) if val == 0]
         return random.choice(coordinates)
+
     def draw_heart(self):
         '''
         Спавнить серця
         :return: None
         '''
 
-
-
+        for bonus in self.bonuses:
+            bonus.draw(self.screen)
 
     def check_heart_spawn(self):
         '''
         Перевіряє чи можна спавнити серця
         :return: None
         '''
-        half = self.count_of_points // 2
+        half = self.count_of_points - 2
         count = self.check_point_on_board()
         if count == half:
+            x, y = self.find_coordinates_for_health()
+            num1 = ((self.height - 50) // 32)
+            num2 = (self.width // 30)
+            x *= num2
+            y *= num1
+            self.bonuses.append(Heart(x, y))
             return True
         return False
-
 
     def register_ghosts_observers(self):
         for i in range(len(self.ghosts)):
@@ -199,14 +210,16 @@ class Maze(Observable):
         self.player.hitbox = pygame.Rect(self.player.x, self.player.y, 45, 45)
         return self.player.x, self.player.y
 
-    def check_collisions(self, score, center_x, center_y, power,power_count, eaten_ghosts):
+    def check_collisions(self, score, center_x, center_y, power, power_count, eaten_ghosts):
         num1 = (self.height - 50) // 32
         num2 = self.width // 30
         if 0 < self.player.x < 870:
             if self.level[center_y // num1][center_x // num2] == 1:
                 self.level[center_y // num1][center_x // num2] = 0
                 score += 10
+
                 self.isHeartSpawned = self.check_heart_spawn()
+
 
             if self.level[center_y // num1][center_x // num2] == 2:
                 self.level[center_y // num1][center_x // num2] = 0
@@ -216,7 +229,10 @@ class Maze(Observable):
                 self.notify(power)
                 print(self.observers)
                 eaten_ghosts = [False, False, False, False]
+
                 self.isHeartSpawned = self.check_heart_spawn()
+
+
         return score, power, power_count, eaten_ghosts
 
     def draw_misc(self, score, power):
@@ -226,5 +242,4 @@ class Maze(Observable):
         if power:
             pygame.draw.circle(self.screen, 'blue', (140, 930), 15)
         for i in range(self.player.lives_count):
-            self.screen.blit(pygame.transform.scale(self.player.player_images[0], (30,30)), (650+i*40, 915))
-
+            self.screen.blit(pygame.transform.scale(self.player.player_images[0], (30, 30)), (650 + i * 40, 915))
