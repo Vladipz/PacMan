@@ -80,14 +80,18 @@ class Game():
                     else:
                         maze.player.hit(self.screen)
                     break
-            print(maze.check_point_on_board())
+
+
+
+
             self.screen.fill("black")
             maze.draw_board()
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
-
+            if maze.isHeartSpawned:
+                maze.draw_heart()
             player_x = maze.player.x
             player_y = maze.player.y
             center_x = player_x + 23

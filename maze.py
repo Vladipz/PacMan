@@ -1,4 +1,5 @@
 import copy
+import random
 
 from Player import Player
 from board import boards
@@ -27,7 +28,8 @@ class Maze(Observable):
 
         self.isNormalMode = True
         self.color = color
-
+        self.count_of_points = self.check_point_on_board()
+        self.isHeartSpawned = False
     def check_point_on_board(self):
         '''
         Перевіряє чи є точка на полі
@@ -39,6 +41,34 @@ class Maze(Observable):
                 if self.level[y][x] == 1 or self.level[y][x] == 2:
                     counter += 1
         return counter
+    def find_coordinates_for_health(self):
+        '''
+        Знаходить координати для серця
+        :return: tuple
+        '''
+        coordinates = [(i, j) for i, row in enumerate(self.level) for j, val in enumerate(row) if val == 0]
+        return random.choice(coordinates)
+    def draw_heart(self):
+        '''
+        Спавнить серця
+        :return: None
+        '''
+
+
+
+
+    def check_heart_spawn(self):
+        '''
+        Перевіряє чи можна спавнити серця
+        :return: None
+        '''
+        half = self.count_of_points // 2
+        count = self.check_point_on_board()
+        if count == half:
+            return True
+        return False
+
+
     def register_ghosts_observers(self):
         for i in range(len(self.ghosts)):
             self.register_observer(self.ghosts[i])
@@ -176,6 +206,8 @@ class Maze(Observable):
             if self.level[center_y // num1][center_x // num2] == 1:
                 self.level[center_y // num1][center_x // num2] = 0
                 score += 10
+                self.isHeartSpawned = self.check_heart_spawn()
+
             if self.level[center_y // num1][center_x // num2] == 2:
                 self.level[center_y // num1][center_x // num2] = 0
                 score += 50
@@ -184,6 +216,7 @@ class Maze(Observable):
                 self.notify(power)
                 print(self.observers)
                 eaten_ghosts = [False, False, False, False]
+                self.isHeartSpawned = self.check_heart_spawn()
         return score, power, power_count, eaten_ghosts
 
     def draw_misc(self, score, power):
