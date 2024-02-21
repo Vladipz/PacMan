@@ -81,11 +81,22 @@ class Game():
                         maze.player.hit(self.screen)
                     break
 
+            for bonus in maze.bonuses:
+                if maze.player.hitbox.colliderect(bonus.rect):
+                    bonus.hit()
+                    maze.bonuses.remove(bonus)
+                    break
+
+
+
             self.screen.fill("black")
             maze.draw_board()
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
+            if len(maze.bonuses) != 0:
+                maze.draw_heart()
+
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
             player_x = maze.player.x
