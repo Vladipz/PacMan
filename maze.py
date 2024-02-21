@@ -51,13 +51,13 @@ class Maze(Observable):
         Знаходить координати для серця
         :return: tuple
         '''
-        random_number = random.randint(1, self.count_of_points)
+        count_of_points = self.check_point_on_board()
+        random_number = random.randint(1, count_of_points)
         for i in range(len(self.level)):
             for j in range(len(self.level[1])):
                 if self.level[i][j] == 1 or self.level[i][j] == 2:
                     random_number -= 1
                     if random_number == 0:
-
                         return j, i
 
         return 2,2

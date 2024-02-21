@@ -91,11 +91,12 @@ class Game():
 
             self.screen.fill("black")
             maze.draw_board()
+            if len(maze.bonuses) != 0:
+                maze.draw_heart()
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
-            if len(maze.bonuses) != 0:
-                maze.draw_heart()
+
 
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
