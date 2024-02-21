@@ -9,7 +9,7 @@ from ghosts.Pinky import Pinky
 import pygame
 import math
 from Observable import Observable
-
+import numpy as np
 PI = math.pi
 
 
@@ -28,6 +28,17 @@ class Maze(Observable):
         self.isNormalMode = True
         self.color = color
 
+    def check_point_on_board(self):
+        '''
+        Перевіряє чи є точка на полі
+        :return: int
+        '''
+        counter = 0
+        for y in range(len(self.level)):
+            for x in range(len(self.level[1])):
+                if self.level[y][x] == 1 or self.level[y][x] == 2:
+                    counter += 1
+        return counter
     def register_ghosts_observers(self):
         for i in range(len(self.ghosts)):
             self.register_observer(self.ghosts[i])

@@ -80,7 +80,7 @@ class Game():
                     else:
                         maze.player.hit(self.screen)
                     break
-
+            print(maze.check_point_on_board())
             self.screen.fill("black")
             maze.draw_board()
             maze.draw_ghosts()
