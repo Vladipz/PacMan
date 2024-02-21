@@ -82,7 +82,7 @@ class Game():
                     break
 
             for bonus in maze.bonuses:
-                if maze.player.hitbox.colliderect(bonus.hitbox):
+                if maze.player.hitbox.colliderect(bonus.rect):
                     bonus.hit()
                     maze.bonuses.remove(bonus)
                     break
@@ -94,9 +94,11 @@ class Game():
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
-            self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
-            if maze.isHeartSpawned:
+            if len(maze.bonuses) != 0:
                 maze.draw_heart()
+
+            self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
+
             player_x = maze.player.x
             player_y = maze.player.y
             center_x = player_x + 23

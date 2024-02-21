@@ -31,7 +31,7 @@ class Maze(Observable):
         self.isNormalMode = True
         self.color = color
         self.count_of_points = self.check_point_on_board()
-        self.isHeartSpawned = False
+        # self.isHeartSpawned = False
         self.bonuses = []
 
     def check_point_on_board(self):
@@ -51,32 +51,34 @@ class Maze(Observable):
         Знаходить координати для серця
         :return: tuple
         '''
-        coordinates = [(i, j) for i, row in enumerate(self.level) for j, val in enumerate(row) if val == 0]
-        return random.choice(coordinates)
+        random_number = random.randint(1, self.count_of_points)
+        for i in range(len(self.level)):
+            for j in range(len(self.level[1])):
+                if self.level[i][j] == 1 or self.level[i][j] == 2:
+                    random_number -= 1
+                    if random_number == 0:
+
+                        return j, i
+
+        return 2,2
 
     def draw_heart(self):
         '''
         Спавнить серця
         :return: None
         '''
-
-        for bonus in self.bonuses:
-            bonus.draw(self.screen)
+        for i in range(len(self.bonuses)):
+            self.bonuses[i].draw(self.screen)
+        # for bonus in self.bonuses:
+        #     bonus.draw(self.screen)
 
     def check_heart_spawn(self):
         '''
-        Перевіряє чи можна спавнити серця
-        :return: None
+            Checks if hearts can be spawned        :return: None
         '''
-        half = self.count_of_points - 2
+        half = self.count_of_points //2
         count = self.check_point_on_board()
         if count == half:
-            x, y = self.find_coordinates_for_health()
-            num1 = ((self.height - 50) // 32)
-            num2 = (self.width // 30)
-            x *= num2
-            y *= num1
-            self.bonuses.append(Heart(x, y))
             return True
         return False
 
@@ -218,9 +220,11 @@ class Maze(Observable):
                 self.level[center_y // num1][center_x // num2] = 0
                 score += 10
 
-                self.isHeartSpawned = self.check_heart_spawn()
-
-
+                if self.check_heart_spawn():
+                    x, y = self.find_coordinates_for_health()
+                    x = x * num2 + 0.5 * num2
+                    y = y * num1 + 0.5 * num1
+                    self.bonuses.append(Heart(x, y, self))
             if self.level[center_y // num1][center_x // num2] == 2:
                 self.level[center_y // num1][center_x // num2] = 0
                 score += 50
@@ -230,8 +234,11 @@ class Maze(Observable):
                 print(self.observers)
                 eaten_ghosts = [False, False, False, False]
 
-                self.isHeartSpawned = self.check_heart_spawn()
-
+                if self.check_heart_spawn():
+                    x, y = self.find_coordinates_for_health()
+                    x = x * num2 + 0.5 * num2
+                    y = y * num1 + 0.5 * num1
+                    self.bonuses.append(Heart(x, y, self))
 
         return score, power, power_count, eaten_ghosts
 
