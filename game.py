@@ -50,7 +50,7 @@ class Game():
 
         window_icon = pygame.image.load('images/player/1.png')
         pygame.display.set_icon(window_icon)
-
+        pygame.display.set_caption('OrangeMan')
         while run:
             self.timer.tick(fps)
 
