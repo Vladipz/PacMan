@@ -34,6 +34,17 @@ class Maze(Observable):
         # self.isHeartSpawned = False
         self.bonuses = []
 
+
+
+    def check_win(self):
+        '''
+        Checks if the player has won
+         :return: bool
+        '''
+        count_of_points = self.check_point_on_board()
+        if count_of_points == 0:
+            return True
+        return False
     def check_point_on_board(self):
         '''
         Перевіряє чи є точка на полі
