@@ -47,7 +47,7 @@ class Maze(Observable):
         return False
     def check_point_on_board(self):
         '''
-        Перевіряє чи є точка на полі
+            check number of points on the board
         :return: int
         '''
         counter = 0
@@ -74,19 +74,20 @@ class Maze(Observable):
         return 2,2
 
     def draw_heart(self):
-        '''
+        """
         Спавнить серця
         :return: None
-        '''
+        """
         for i in range(len(self.bonuses)):
             self.bonuses[i].draw(self.screen)
         # for bonus in self.bonuses:
         #     bonus.draw(self.screen)
 
     def check_heart_spawn(self):
-        '''
-            Checks if hearts can be spawned        :return: None
-        '''
+        """
+            Checks if hearts can be spawned
+            :return: None
+        """
         half = self.count_of_points //2
         count = self.check_point_on_board()
         if count == half:

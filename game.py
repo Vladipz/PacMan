@@ -126,7 +126,7 @@ class Game():
             if maze.check_win():
                 (color, counter, turns_allowed, direction_command,
                  score, power, power_counter, eaten_ghosts, moving,
-                 startup_counter, maze, best_score) = self.restart_game(score, best_score)
+                 startup_counter, maze, best_score) = self.restart_game(self.score, self.best_score)
 
             if maze.player.lives_count < 1:
 

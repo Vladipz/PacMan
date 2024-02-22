@@ -78,7 +78,7 @@ class Ghost(Observer, ABC):
             screen.blit(self.powerup_img, (self.x, self.y))
 
         self.hitbox = pygame.Rect(self.x, self.y, 40, 40)  # change hitbox coordinates
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
         return ghost_rect
