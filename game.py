@@ -12,14 +12,14 @@ class Game():
         self.screen = self.small_screen.copy()
         self.timer = pygame.time.Clock()
 
-    def restart_game(self):
+    def restart_game(self, score):
         # Reset all necessary variables to their initial values
         # level = boards.copy()
         color = "blue"
         counter = 0
         turns_allowed = [False, False, False, False]
         direction_command = 0
-        score = 0
+        score = score
         power = False
         power_counter = 0
         eaten_ghosts = [False, False, False, False]
@@ -42,7 +42,7 @@ class Game():
          eaten_ghosts,
          moving,
          startup_counter,
-         maze) = self.restart_game()
+         maze) = self.restart_game(0)
 
         run = True
 
@@ -87,8 +87,6 @@ class Game():
                     maze.bonuses.remove(bonus)
                     break
 
-
-
             self.screen.fill("black")
             maze.draw_board()
             if len(maze.bonuses) != 0:
@@ -96,7 +94,6 @@ class Game():
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
-
 
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
@@ -112,6 +109,11 @@ class Game():
                                                                               power_count=power_counter,
                                                                               eaten_ghosts=eaten_ghosts)
 
+            if maze.check_win():
+                (color, counter, turns_allowed, direction_command,
+                 score, power, power_counter, eaten_ghosts, moving,
+                 startup_counter, maze) = self.restart_game(score)
+
             if maze.player.lives_count < 1:
 
                 screen = pygame.display.get_surface()
@@ -122,16 +124,11 @@ class Game():
                 screen.blit(text, text_rect)
                 pygame.display.flip()
 
-                i = 0
-                while i < 300:
-                    pygame.time.delay(10)
-                    i += 1
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            i = 301
-                            pygame.quit()
+                self.wait_and_quit(3)
 
-                color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze = self.restart_game()
+                (color, counter, turns_allowed, direction_command,
+                 score, power, power_counter, eaten_ghosts, moving,
+                 startup_counter, maze) = self.restart_game(0)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -185,3 +182,20 @@ class Game():
             pygame.display.flip()
 
         pygame.quit()
+
+    def wait_and_quit(self, time_delay):
+        """
+        This function is called to wait
+        :param time_delay: The duration to wait in seconds.
+        :return:
+        """
+        helper = 100
+        time_delay = time_delay * helper
+        i = 0
+        while i < time_delay:
+            pygame.time.delay(10)
+            i += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    i = 301
+                    pygame.quit()
