@@ -87,8 +87,6 @@ class Game():
                     maze.bonuses.remove(bonus)
                     break
 
-
-
             self.screen.fill("black")
             maze.draw_board()
             if len(maze.bonuses) != 0:
@@ -96,7 +94,6 @@ class Game():
             maze.draw_ghosts()
             maze.draw_player(int(counter))
             maze.draw_misc(score, power=power)
-
 
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
@@ -116,7 +113,6 @@ class Game():
                 (color, counter, turns_allowed, direction_command,
                  score, power, power_counter, eaten_ghosts, moving,
                  startup_counter, maze) = self.restart_game(score)
-
 
             if maze.player.lives_count < 1:
 
@@ -193,3 +189,20 @@ class Game():
             pygame.display.flip()
 
         pygame.quit()
+
+    def wait_and_quit(self, time_delay):
+        """
+        This function is called to wait
+        :param time_delay: The duration to wait in seconds.
+        :return:
+        """
+        helper = 100
+        time_delay = time_delay * helper
+        i = 0
+        while i < time_delay:
+            pygame.time.delay(10)
+            i += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    i = 301
+                    pygame.quit()
