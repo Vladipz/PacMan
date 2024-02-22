@@ -19,7 +19,13 @@ class SavaLoadSystem():
         except Exception as e:
             print(f"Error saving file: {e}")
 
-    def load(self, name):
-        with open(self.save_folder + "/" + name + self.file_extension) as data_file:
-            data = json.load(data_file)
-            return data
+    def load(self, name, default_value=None):
+        try:
+            file_path = os.path.join(self.save_folder, name + self.file_extension)
+            with open(file_path) as data_file:
+                data = json.load(data_file)
+                return data
+        except FileNotFoundError:
+            # Якщо файл не існує, повертаємо значення за замовчуванням
+            print(f"File '{name}' not found. Returning the default value.")
+            return default_value
