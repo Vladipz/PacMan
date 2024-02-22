@@ -138,7 +138,8 @@ class Maze(Observable):
         for i in range(len(self.ghosts)):
             self.ghosts[i].draw(self.screen)
             self.ghosts[i].can_move(self.width, self.height)
-            self.ghosts[i].move()
+
+
 
     def draw_player(self, counter):
         # 0-RIGHT, 1-LEFT, 2-UP, 3-DOWN

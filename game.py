@@ -118,6 +118,8 @@ class Game():
             turns_allowed = maze.check_position(center_x, center_y)
             if moving:
                 player_x, player_y = maze.move_player(turns_allowed)
+                for i in range(len(maze.ghosts)):
+                    maze.ghosts[i].move()
             self.score, power, power_counter, eaten_ghosts = maze.check_collisions(self.score, center_x=center_x,
                                                                               center_y=center_y, power=power,
                                                                               power_count=power_counter,
