@@ -1,3 +1,5 @@
+import json
+
 import pygame
 from settings import *
 from pygame.locals import *
@@ -12,37 +14,42 @@ class Game():
         self.screen = self.small_screen.copy()
         self.timer = pygame.time.Clock()
 
-    def restart_game(self, score):
+        self.score = 0
+        self.best_score = 0  # TODO add best score from file 2
+
+    def restart_game(self, score, best_score):
         # Reset all necessary variables to their initial values
         # level = boards.copy()
         color = "blue"
         counter = 0
         turns_allowed = [False, False, False, False]
         direction_command = 0
-        score = score
+        self.score = score
+        self.best_score = best_score
         power = False
         power_counter = 0
         eaten_ghosts = [False, False, False, False]
         moving = False
         startup_counter = 0
-
         # Recreate the maze object
         maze = Maze("blue", width, height, self.screen)
 
-        return color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze
+        return color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze, best_score
 
     def run(self):
         (color,
          counter,
          turns_allowed,
          direction_command,
-         score,
+         self.score,
          power,
          power_counter,
          eaten_ghosts,
          moving,
          startup_counter,
-         maze) = self.restart_game(0)
+         maze,
+         self.best_score
+         ) = self.restart_game(0, 0)  # TODO add best score from file
 
         run = True
 
@@ -96,7 +103,7 @@ class Game():
                 maze.draw_heart()
             maze.draw_ghosts()
             maze.draw_player(int(counter))
-            maze.draw_misc(score, power=power)
+            maze.draw_misc(self.score, self.best_score, power)
 
             self.small_screen.blit(pygame.transform.scale(self.screen, self.small_screen.get_rect().size), (0, 0))
 
@@ -111,7 +118,7 @@ class Game():
             turns_allowed = maze.check_position(center_x, center_y)
             if moving:
                 player_x, player_y = maze.move_player(turns_allowed)
-            score, power, power_counter, eaten_ghosts = maze.check_collisions(score, center_x=center_x,
+            self.score, power, power_counter, eaten_ghosts = maze.check_collisions(self.score, center_x=center_x,
                                                                               center_y=center_y, power=power,
                                                                               power_count=power_counter,
                                                                               eaten_ghosts=eaten_ghosts)
@@ -119,23 +126,32 @@ class Game():
             if maze.check_win():
                 (color, counter, turns_allowed, direction_command,
                  score, power, power_counter, eaten_ghosts, moving,
-                 startup_counter, maze) = self.restart_game(score)
+                 startup_counter, maze, best_score) = self.restart_game(score, best_score)
 
             if maze.player.lives_count < 1:
 
                 screen = pygame.display.get_surface()
+
                 # game ends
                 font1 = pygame.font.SysFont('comicsans', 100)
                 text = font1.render('Game Over', 1, (255, 0, 0))
                 text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_width() / 2))
                 screen.blit(text, text_rect)
+
+                if self.score > self.best_score:
+                    self.best_score = self.score
+                    font1 = pygame.font.SysFont('comicsans', 30)
+                    text = font1.render(f'New best score: {self.best_score}', 1, (255, 0, 0))
+                    text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_width() / 2 + 100))
+                    screen.blit(text, text_rect)
+
                 pygame.display.flip()
 
                 self.wait_and_quit(3)
 
                 (color, counter, turns_allowed, direction_command,
                  score, power, power_counter, eaten_ghosts, moving,
-                 startup_counter, maze) = self.restart_game(0)
+                 startup_counter, maze, best_score) = self.restart_game(0, self.best_score)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -187,7 +203,8 @@ class Game():
                 maze.player.direction = 3
 
             pygame.display.flip()
-
+        with open('highscore.txt', 'w') as score_file:
+            json.dump()
         pygame.quit()
 
     def wait_and_quit(self, time_delay):
