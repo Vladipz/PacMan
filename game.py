@@ -48,6 +48,9 @@ class Game():
 
         maze.register_ghosts_observers()
 
+        window_icon = pygame.image.load('images/player/1.png')
+        pygame.display.set_icon(window_icon)
+
         while run:
             self.timer.tick(fps)
 
