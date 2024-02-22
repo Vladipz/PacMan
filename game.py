@@ -49,7 +49,7 @@ class Game():
          startup_counter,
          maze,
          self.best_score
-         ) = self.restart_game(0, self.save_load_system.load("best_score"))
+         ) = self.restart_game(0, self.save_load_system.load("best_score", 0))
 
         run = True
 
