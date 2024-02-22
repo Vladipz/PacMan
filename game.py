@@ -104,6 +104,10 @@ class Game():
             player_y = maze.player.y
             center_x = player_x + 23
             center_y = player_y + 24
+
+            maze.player.center_x = center_x
+            maze.player.center_y = center_y
+
             turns_allowed = maze.check_position(center_x, center_y)
             if moving:
                 player_x, player_y = maze.move_player(turns_allowed)

@@ -12,10 +12,18 @@ class Player(object):
         self.direction = direction
         self.player_speed = player_speed
         self.player_images = []
-        self.hitbox = pygame.Rect(self.x, self.y, 45, 45)
+
         self.maze = maze
+
         for i in range(1, 5):
             self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
+
+        self.hitbox = self.player_images[0].get_rect()
+        self.hitbox.size = (30, 30)
+        self.width = 30
+        self.height = 30
+        # self.hitbox = pygame.draw.circle(pygame.display.get_surface(), (255, 0, 0), (self.center_x, self.center_y), 23, 2)
+        self.hitbox.center = self.x + 23, self.y + 24
 
     def hit(self, screen: pygame.Surface):
         """
