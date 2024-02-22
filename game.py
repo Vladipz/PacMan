@@ -5,7 +5,7 @@ from settings import *
 from pygame.locals import *
 from board import boards
 from maze import Maze
-
+from save_load_manager import SavaLoadSystem
 
 class Game():
     def __init__(self):
@@ -13,9 +13,9 @@ class Game():
         self.small_screen = pygame.display.set_mode((width, height), HWSURFACE | DOUBLEBUF | RESIZABLE)
         self.screen = self.small_screen.copy()
         self.timer = pygame.time.Clock()
-
+        self.save_load_system = SavaLoadSystem(".json", "save_files")
         self.score = 0
-        self.best_score = 0  # TODO add best score from file 2
+        self.best_score = 0 
 
     def restart_game(self, score, best_score):
         # Reset all necessary variables to their initial values
@@ -49,7 +49,7 @@ class Game():
          startup_counter,
          maze,
          self.best_score
-         ) = self.restart_game(0, 0)  # TODO add best score from file
+         ) = self.restart_game(0, self.save_load_system.load("best_score"))
 
         run = True
 
@@ -203,8 +203,7 @@ class Game():
                 maze.player.direction = 3
 
             pygame.display.flip()
-        with open('highscore.txt', 'w') as score_file:
-            json.dump()
+        self.save_load_system.save(self.best_score, "best_score")
         pygame.quit()
 
     def wait_and_quit(self, time_delay):
