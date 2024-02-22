@@ -255,10 +255,14 @@ class Maze(Observable):
 
         return score, power, power_count, eaten_ghosts
 
-    def draw_misc(self, score, power):
+    def draw_misc(self, score, best_score, power,):
         font = pygame.font.Font(None, 36)  # створюємо об'єкт шрифту
         score_text = font.render(f'Score: {score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
         self.screen.blit(score_text, (10, 920))  # відображаємо текст на екрані
+
+        score_text = font.render(f'Best score: {best_score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
+        self.screen.blit(score_text, (200, 920))  # відображаємо текст на екрані
+
         if power:
             pygame.draw.circle(self.screen, 'blue', (140, 930), 15)
         for i in range(self.player.lives_count):
