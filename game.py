@@ -124,14 +124,7 @@ class Game():
                 screen.blit(text, text_rect)
                 pygame.display.flip()
 
-                i = 0
-                while i < 300:
-                    pygame.time.delay(10)
-                    i += 1
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            i = 301
-                            pygame.quit()
+                self.wait_and_quit(3)
 
                 (color, counter, turns_allowed, direction_command,
                  score, power, power_counter, eaten_ghosts, moving,
