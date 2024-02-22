@@ -12,14 +12,14 @@ class Game():
         self.screen = self.small_screen.copy()
         self.timer = pygame.time.Clock()
 
-    def restart_game(self):
+    def restart_game(self, score):
         # Reset all necessary variables to their initial values
         # level = boards.copy()
         color = "blue"
         counter = 0
         turns_allowed = [False, False, False, False]
         direction_command = 0
-        score = 0
+        score = score
         power = False
         power_counter = 0
         eaten_ghosts = [False, False, False, False]
@@ -42,7 +42,7 @@ class Game():
          eaten_ghosts,
          moving,
          startup_counter,
-         maze) = self.restart_game()
+         maze) = self.restart_game(0)
 
         run = True
 
@@ -112,6 +112,12 @@ class Game():
                                                                               power_count=power_counter,
                                                                               eaten_ghosts=eaten_ghosts)
 
+            if maze.check_win():
+                (color, counter, turns_allowed, direction_command,
+                 score, power, power_counter, eaten_ghosts, moving,
+                 startup_counter, maze) = self.restart_game(score)
+
+
             if maze.player.lives_count < 1:
 
                 screen = pygame.display.get_surface()
@@ -131,7 +137,9 @@ class Game():
                             i = 301
                             pygame.quit()
 
-                color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze = self.restart_game()
+                (color, counter, turns_allowed, direction_command,
+                 score, power, power_counter, eaten_ghosts, moving,
+                 startup_counter, maze) = self.restart_game(0)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
