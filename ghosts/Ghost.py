@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pygame
 from board import boards
 from Observer import Observer
-
+import path
 
 class Ghost(Observer, ABC):
     def __init__(self, x, y, direction, image, player, powerup_player):
@@ -22,7 +22,7 @@ class Ghost(Observer, ABC):
         self.powerup_player = powerup_player
         self.normal_img = pygame.transform.scale(pygame.image.load(image),
                                                  (self.width, self.height))
-        self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/powerup.png'),
+        self.powerup_img = pygame.transform.scale(pygame.image.load(path.ghosts_image[4]),
                                                   (self.width, self.height))
         self.image = self.normal_img
 

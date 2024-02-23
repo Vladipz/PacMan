@@ -1,6 +1,6 @@
 import pygame.transform
 import pygame
-
+import path
 
 # from main import width, height
 
@@ -15,8 +15,8 @@ class Player(object):
 
         self.maze = maze
 
-        for i in range(1, 5):
-            self.player_images.append(pygame.transform.scale(pygame.image.load(f'images/player/{i}.png'), (45, 45)))
+        for i in range(0, 4):
+            self.player_images.append(pygame.transform.scale(pygame.image.load(path.player_images[i]), (45, 45)))
 
         self.hitbox = self.player_images[0].get_rect()
         self.hitbox.size = (30, 30)

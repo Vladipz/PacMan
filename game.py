@@ -7,6 +7,7 @@ from board import boards
 from maze import Maze
 from save_load_manager import SavaLoadSystem
 import sys
+import path
 
 class Game():
     def __init__(self):
