@@ -6,7 +6,7 @@ from pygame.locals import *
 from board import boards
 from maze import Maze
 from save_load_manager import SavaLoadSystem
-
+import path
 
 class Game():
     def __init__(self):
@@ -56,7 +56,7 @@ class Game():
 
         maze.register_ghosts_observers()
 
-        window_icon = pygame.image.load('images/player/1.png')
+        window_icon = pygame.image.load(path.icon_path)
         pygame.display.set_icon(window_icon)
         pygame.display.set_caption('OrangeMan')
         while run:

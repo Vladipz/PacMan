@@ -1,10 +1,10 @@
 import pygame
 from Player import Player
 from ghosts.Ghost import Ghost
-
+import path
 class Pinky(Ghost):
     def __init__(self, player):
-        super().__init__(440, 390, 2, 'images/ghosts/pinky.png', player, Player(800, 950, 0, 0, 0, None))
+        super().__init__(440, 390, 2, path.ghosts_image[3], player, Player(800, 950, 0, 0, 0, None))
 
     def hit(self):
         super().hit()
