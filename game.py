@@ -34,7 +34,7 @@ class Game():
         startup_counter = 0
         # Recreate the maze object
         maze = Maze("blue", width, height, self.screen)
-        maze.register_ghosts_observers()
+
         return color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze, best_score
 
     def run(self):
