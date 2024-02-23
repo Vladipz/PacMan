@@ -89,6 +89,7 @@ class Game():
                     if ghost.powerup:
                         ghost.hit()
                     else:
+                        direction_command=0
                         maze.player.hit(self.screen)
                     break
 
