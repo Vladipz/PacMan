@@ -17,8 +17,6 @@ class Ghost(Observer, ABC):
         self.x = x
         self.y = y
         self.turns = None
-        self.in_box = False
-        self.is_dead = False
         self.direction = direction
         self.powerup = False
         self.powerup_player = powerup_player
