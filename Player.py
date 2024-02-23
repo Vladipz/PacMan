@@ -37,7 +37,7 @@ class Player(object):
             self.maze.ghosts[i].hit()
         self.lives_count -= 1
         if self.lives_count < 1:
-           pass
+            pass
         else:
             i = 0
             while i < 100:

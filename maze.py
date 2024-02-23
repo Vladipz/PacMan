@@ -33,7 +33,7 @@ class Maze(Observable):
         self.count_of_points = self.check_point_on_board()
         # self.isHeartSpawned = False
         self.bonuses = []
-
+        self.powerup_finish_event = pygame.USEREVENT + 1
 
 
     def check_win(self):
@@ -45,6 +45,7 @@ class Maze(Observable):
         if count_of_points == 0:
             return True
         return False
+
     def check_point_on_board(self):
         '''
             check number of points on the board
@@ -71,7 +72,7 @@ class Maze(Observable):
                     if random_number == 0:
                         return j, i
 
-        return 2,2
+        return 2, 2
 
     def draw_heart(self):
         """
@@ -84,11 +85,10 @@ class Maze(Observable):
         #     bonus.draw(self.screen)
 
     def check_heart_spawn(self):
-        """
-            Checks if hearts can be spawned
-            :return: None
-        """
-        half = self.count_of_points //2
+        '''
+            Checks if hearts can be spawned        :return: None
+        '''
+        half = self.count_of_points // 2
         count = self.check_point_on_board()
         if count == half:
             return True
@@ -139,7 +139,6 @@ class Maze(Observable):
         for i in range(len(self.ghosts)):
             self.ghosts[i].draw(self.screen)
             self.ghosts[i].can_move(self.width, self.height)
-            self.ghosts[i].move()
 
     def draw_player(self, counter):
         # 0-RIGHT, 1-LEFT, 2-UP, 3-DOWN
@@ -229,6 +228,7 @@ class Maze(Observable):
     def check_collisions(self, score, center_x, center_y, power, power_count, eaten_ghosts):
         num1 = (self.height - 50) // 32
         num2 = self.width // 30
+
         if 0 < self.player.x < 870:
             if self.level[center_y // num1][center_x // num2] == 1:
                 self.level[center_y // num1][center_x // num2] = 0
@@ -245,9 +245,8 @@ class Maze(Observable):
                 power = True
                 power_count = 0
                 self.notify(power)
-                print(self.observers)
                 eaten_ghosts = [False, False, False, False]
-
+                pygame.time.set_timer(self.powerup_finish_event, 7000)
                 if self.check_heart_spawn():
                     x, y = self.find_coordinates_for_health()
                     x = x * num2 + 0.5 * num2
@@ -256,12 +255,13 @@ class Maze(Observable):
 
         return score, power, power_count, eaten_ghosts
 
-    def draw_misc(self, score, best_score, power,):
+    def draw_misc(self, score, best_score, power, ):
         font = pygame.font.Font(None, 36)  # створюємо об'єкт шрифту
         score_text = font.render(f'Score: {score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
         self.screen.blit(score_text, (10, 920))  # відображаємо текст на екрані
 
-        score_text = font.render(f'Best score: {best_score}', True, 'white')  # створюємо зображення тексту з об'єктом шрифту
+        score_text = font.render(f'Best score: {best_score}', True,
+                                 'white')  # створюємо зображення тексту з об'єктом шрифту
         self.screen.blit(score_text, (200, 920))  # відображаємо текст на екрані
 
         if power:

@@ -5,9 +5,7 @@ from ghosts.Ghost import Ghost
 
 class Clyde(Ghost):
     def __init__(self, player):
-        image = pygame.transform.scale(pygame.image.load('images/ghosts/clyde.png'),
-                                       (40, 40))
-        super().__init__(440, 338, 2, image, player, Player(800, -50, 0, 0, 0, None))
+        super().__init__(440, 338, 2, 'images/ghosts/clyde.png', player, Player(800, -50, 0, 0, 0, None))
         # super().__init__(170, 200, 2, image, player)
 
     def hit(self):

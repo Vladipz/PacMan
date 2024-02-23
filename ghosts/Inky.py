@@ -6,9 +6,7 @@ from ghosts.Ghost import Ghost
 
 class Inky(Ghost):
     def __init__(self, player):
-        image = pygame.transform.scale(pygame.image.load('images/ghosts/inky.png'),
-                                       (40, 40))
-        super().__init__(440, 388, 2, image, player, Player(100, 950, 0, 0, 0, None))
+        super().__init__(440, 388, 2, 'images/ghosts/inky.png', player, Player(100, 950, 0, 0, 0, None))
 
     def hit(self):
         super().hit()
