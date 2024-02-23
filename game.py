@@ -6,7 +6,7 @@ from pygame.locals import *
 from board import boards
 from maze import Maze
 from save_load_manager import SavaLoadSystem
-
+import sys
 
 class Game():
     def __init__(self):
@@ -22,6 +22,8 @@ class Game():
         # Reset all necessary variables to their initial values
         # level = boards.copy()
         color = "blue"
+        if len(sys.argv) > 1:
+            color = sys.argv[1]
         counter = 0
         turns_allowed = [False, False, False, False]
         direction_command = 0
@@ -33,7 +35,7 @@ class Game():
         moving = False
         startup_counter = 0
         # Recreate the maze object
-        maze = Maze("blue", width, height, self.screen)
+        maze = Maze(color, width, height, self.screen)
         maze.register_ghosts_observers()
         return color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze, best_score
 
@@ -53,8 +55,6 @@ class Game():
          ) = self.restart_game(0, self.save_load_system.load("best_score", 0))
 
         run = True
-
-        maze.register_ghosts_observers()
 
         window_icon = pygame.image.load('images/player/1.png')
         pygame.display.set_icon(window_icon)
