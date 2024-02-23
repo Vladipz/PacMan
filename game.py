@@ -7,6 +7,7 @@ from board import boards
 from maze import Maze
 from save_load_manager import SavaLoadSystem
 
+
 class Game():
     def __init__(self):
         pygame.init()
@@ -15,7 +16,7 @@ class Game():
         self.timer = pygame.time.Clock()
         self.save_load_system = SavaLoadSystem(".json", "save_files")
         self.score = 0
-        self.best_score = 0 
+        self.best_score = 0
 
     def restart_game(self, score, best_score):
         # Reset all necessary variables to their initial values
@@ -121,9 +122,9 @@ class Game():
                 for i in range(len(maze.ghosts)):
                     maze.ghosts[i].move()
             self.score, power, power_counter, eaten_ghosts = maze.check_collisions(self.score, center_x=center_x,
-                                                                              center_y=center_y, power=power,
-                                                                              power_count=power_counter,
-                                                                              eaten_ghosts=eaten_ghosts)
+                                                                                   center_y=center_y, power=power,
+                                                                                   power_count=power_counter,
+                                                                                   eaten_ghosts=eaten_ghosts)
 
             if maze.check_win():
                 (color, counter, turns_allowed, direction_command,
@@ -185,7 +186,8 @@ class Game():
                         direction_command = maze.player.direction
                     if event.key == pygame.K_DOWN and direction_command == 3:
                         direction_command = maze.player.direction
-
+                if event.type == maze.powerup_finish_event:
+                    maze.notify(False)
             for i in range(4):
                 if direction_command == i and turns_allowed[i]:
                     maze.player.direction = i
@@ -206,6 +208,7 @@ class Game():
 
             pygame.display.flip()
         self.save_load_system.save(self.best_score, "best_score")
+
         pygame.quit()
 
     def wait_and_quit(self, time_delay):

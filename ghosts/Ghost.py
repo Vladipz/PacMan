@@ -8,23 +8,26 @@ class Ghost(Observer, ABC):
     def __init__(self, x, y, direction, image, player, powerup_player):
         self.x = x
         self.y = y
+        self.width = 40
+        self.height = 40
         self.player = player
         self.speed = 2
         self.powerup = False
-        self.hitbox = pygame.Rect(self.x, self.y, 40, 40)  # i am not sure about this
+        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)  # i am not sure about this
         self.x = x
         self.y = y
+        self.center_x = x + (self.width // 2)
+        self.center_y = y + (self.height // 2)
         self.turns = None
-        self.center_x = x + 20
-        self.center_y = y + 20
         self.in_box = False
         self.is_dead = False
         self.direction = direction
         self.powerup = False
         self.powerup_player = powerup_player
-        self.normal_img = image
+        self.normal_img = pygame.transform.scale(pygame.image.load(image),
+                                                 (self.width, self.height))
         self.powerup_img = pygame.transform.scale(pygame.image.load('images/ghosts/powerup.png'),
-                                                  (40, 40))
+                                                  (self.width, self.height))
         self.image = self.normal_img
 
     def can_move(self, width, height):
@@ -32,19 +35,19 @@ class Ghost(Observer, ABC):
         num2 = (width // 30)
         num3 = 0
         self.turns = [False, False, False, False]
-        if 0 < self.x < width - 40 and 0 < self.y < height - 40:
+        if 0 < self.x < width - self.width and 0 < self.y < height - self.height:
             if boards[(self.y - num3) // num1][(self.x + 20) // num2] == 9:
                 self.turns[2] = True
             if boards[(self.y + 20) // num1][(self.x - num3) // num2] < 3 \
                     or (boards[(self.y + 20) // num1][(self.x - num3) // num2] == 9 and (
                     self.in_box or self.is_dead)):
                 self.turns[1] = True
-            if boards[(self.y + 20) // num1][(self.x + num3 + 40) // num2] < 3 \
-                    or (boards[(self.y + 20) // num1][(self.x + num3 + 40) // num2] == 9 and (
+            if boards[(self.y + 20) // num1][(self.x + num3 + self.width) // num2] < 3 \
+                    or (boards[(self.y + 20) // num1][(self.x + num3 + self.height) // num2] == 9 and (
                     self.in_box or self.is_dead)):
                 self.turns[0] = True
-            if boards[(self.y + num3 + 40) // num1][(self.x + 20) // num2] < 3 \
-                    or (boards[(self.y + num3 + 40) // num1][(self.x + 20) // num2] == 9 and (
+            if boards[(self.y + num3 + self.width) // num1][(self.x + 20) // num2] < 3 \
+                    or (boards[(self.y + num3 + self.width) // num1][(self.x + 20) // num2] == 9 and (
                     self.in_box or self.is_dead)):
                 self.turns[3] = True
             if boards[(self.y - num3) // num1][(self.x + 20) // num2] < 3 \
@@ -61,9 +64,10 @@ class Ghost(Observer, ABC):
 
     def update(self, powerup):
         self.powerup = powerup
-        self.image = self.powerup_img
-        print(self.powerup, self.image)
-
+        if self.powerup:
+            self.image = self.powerup_img
+        else:
+            self.image = self.normal_img
 
     def draw(self, screen):
         '''
@@ -77,8 +81,8 @@ class Ghost(Observer, ABC):
         elif not self.is_dead and self.powerup:
             screen.blit(self.powerup_img, (self.x, self.y))
 
-        self.hitbox = pygame.Rect(self.x, self.y, 40, 40)  # change hitbox coordinates
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)  # change hitbox coordinates
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
         return ghost_rect
@@ -86,7 +90,8 @@ class Ghost(Observer, ABC):
     def choose_target(self):
         if self.powerup:
             return self.powerup_player
-        else: return self.player
+        else:
+            return self.player
 
     @abstractmethod
     def hit(self):

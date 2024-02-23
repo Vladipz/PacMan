@@ -2,11 +2,10 @@ import pygame.image
 from ghosts.Ghost import Ghost
 from Player import Player
 
+
 class Blinky(Ghost):
     def __init__(self, player):
-        image = pygame.transform.scale(pygame.image.load('images/ghosts/blinky.png'),
-                                       (40, 40))
-        super().__init__(56, 58, 0, image, player, Player(100, -50, 0, 0, 0, None))
+        super().__init__(56, 58, 0, 'images/ghosts/blinky.png', player, Player(100, -50, 0, 0, 0, None))
 
     def hit(self):
         super().hit()

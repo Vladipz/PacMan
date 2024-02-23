@@ -4,8 +4,7 @@ from ghosts.Ghost import Ghost
 
 class Pinky(Ghost):
     def __init__(self, player):
-        image = pygame.transform.scale(pygame.image.load('images/ghosts/pinky.png'), (40, 40))
-        super().__init__(440, 390, 2, image, player, Player(800, 950, 0, 0, 0, None))
+        super().__init__(440, 390, 2, 'images/ghosts/pinky.png', player, Player(800, 950, 0, 0, 0, None))
 
     def hit(self):
         super().hit()
