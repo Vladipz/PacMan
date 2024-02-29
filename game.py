@@ -41,6 +41,11 @@ class Game():
         return color, counter, turns_allowed, direction_command, score, power, power_counter, eaten_ghosts, moving, startup_counter, maze, best_score
 
     def run(self):
+        """
+        This function is called to run the game
+        :return:
+        """
+
         (color,
          counter,
          turns_allowed,

@@ -76,7 +76,7 @@ class Maze(Observable):
 
     def draw_heart(self):
         """
-        Спавнить серця
+        This method draws the heart on the screen
         :return: None
         """
         for i in range(len(self.bonuses)):
@@ -85,9 +85,9 @@ class Maze(Observable):
         #     bonus.draw(self.screen)
 
     def check_heart_spawn(self):
-        '''
+        """
             Checks if hearts can be spawned        :return: None
-        '''
+        """
         half = self.count_of_points // 2
         count = self.check_point_on_board()
         if count == half:
@@ -99,6 +99,10 @@ class Maze(Observable):
             self.register_observer(self.ghosts[i])
 
     def draw_board(self):
+        """
+        Draws the board
+        :return:
+        """
         num1 = ((self.height - 50) // 32)
         num2 = (self.width // 30)
         for y in range(len(self.level)):  # висота num1

@@ -15,9 +15,18 @@ class Heart():
         self.maze = maze
 
     def draw(self, screen: pygame.Surface):
+        """
+        This method draws the heart on the screen
+        :param screen:
+        :return:
+        """
         screen.blit(self.image, self.rect)
         # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
         #pygame.draw.rect(screen, (255, 0, 0), self.rect, 2)
     def hit(self):
+        """
+        This method is called when the heart is hit
+        :return:
+        """
         self.maze.player.lives_count += 1
         pass
