@@ -30,7 +30,7 @@ class Player(object):
         This function is called when the player is hit by the ghost
         :return:
         """
-
+        
         self.x = 450
         self.y = 663
         for i in range(len(self.maze.ghosts)):

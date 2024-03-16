@@ -13,7 +13,7 @@ class Heart():
         self.height = 40
         self.rect.center = (self.x, self.y)
         self.maze = maze
-
+        self.hitbox = (self.x, self.y, self.width, self.height)
     def draw(self, screen: pygame.Surface):
         """
         This method draws the heart on the screen

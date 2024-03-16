@@ -22,6 +22,7 @@ class Game():
     def restart_game(self, score, best_score):
         # Reset all necessary variables to their initial values
         # level = boards.copy()
+        
         color = "blue"
         if len(sys.argv) > 1:
             color = sys.argv[1]
