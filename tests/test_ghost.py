@@ -1,13 +1,4 @@
 import pytest
-from ghosts.Blinky import Blinky
-from Player import Player
-import pygame
-
-
-@pytest.fixture
-def blinky():
-    player = Player(x=100, y=200, lives_count=3, direction=0, player_speed=2, maze=None)
-    return Blinky(player)
 
 
 @pytest.mark.parametrize("width, height, expected_turns", [
@@ -32,3 +23,11 @@ def test_choose_target(blinky):
     blinky.powerup = False
     assert blinky.choose_target() is blinky.player
 
+
+def test_blinky_move(blinky):
+    blinky.x = 50
+    blinky.y = 50
+    blinky.turns = [True, True, True, True]
+    blinky.move()
+    assert blinky.x == 52
+    assert blinky.y == 50
