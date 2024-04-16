@@ -13,7 +13,7 @@ class Ghost(Observer, ABC):
         self.player = player
         self.speed = 2
         self.powerup = False
-        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)  # i am not sure about this
+        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)
         self.x = x
         self.y = y
         self.turns = None
