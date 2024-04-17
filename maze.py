@@ -162,7 +162,20 @@ class Maze(Observable):
         elif direction == 3:
             self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
                              (player_x, player_y))
-        # pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 2)
+
+    def draw_player_for_tests(self, counter):
+        # 0-RIGHT, 1-LEFT, 2-UP, 3-DOWN
+        direction = self.player.direction
+        player_images = self.player.player_images
+
+        if direction == 0:
+            return player_images[counter % len(player_images)]
+        elif direction == 1:
+            return pygame.transform.flip(player_images[counter % len(player_images)], True, False)
+        elif direction == 2:
+            return pygame.transform.rotate(player_images[counter % len(player_images)], 90)
+        elif direction == 3:
+            return pygame.transform.rotate(player_images[counter % len(player_images)], 270)
 
     def check_position(self, center_x, center_y):
         turns = [False, False, False, False]
