@@ -1,9 +1,6 @@
-import json
-
 import pygame
-from settings import *
-from pygame.locals import *
-from board import boards
+from settings import fps, width, height
+from pygame.locals import HWSURFACE, DOUBLEBUF, RESIZABLE, VIDEORESIZE
 from maze import Maze
 from save_load_manager import SavaLoadSystem
 import sys
@@ -227,9 +224,6 @@ class Game:
                         new_width = int(new_height * ratio)
                     else:
                         new_height = int(new_width / ratio)
-                    small_screen = pygame.display.set_mode(
-                        (new_width, new_height), HWSURFACE | DOUBLEBUF | RESIZABLE
-                    )
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RIGHT:
                         direction_command = 0

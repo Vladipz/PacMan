@@ -23,12 +23,11 @@ class Player(object):
         self.height = 30
         self.hitbox.center = self.x + 23, self.y + 24
 
-    def hit(self, screen: pygame.Surface):
+    def hit(self):
         """
         This function is called when the player is hit by the ghost
         :return:
         """
-        
         self.x = 450
         self.y = 663
         for i in range(len(self.maze.ghosts)):
