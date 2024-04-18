@@ -1,6 +1,6 @@
 import pytest
 from maze import Maze
-from settings import *
+from settings import width, height
 import pygame
 
 
@@ -82,7 +82,7 @@ def test_check_collisions_with_no_collision(maze_instance):
 
     # Assert
     assert score == 0
-    assert power == False
+    assert power is False
     assert power_count == 0
     assert eaten_ghosts == [False, False, False, False]
 
@@ -103,7 +103,7 @@ def test_check_collisions_with_point_collision(maze_instance):
 
     # Assert
     assert score == 10  # Assuming score increases by 10 when a point is collected
-    assert power == False
+    assert power is False
     assert power_count == 0
     assert eaten_ghosts == [
         False,
@@ -135,4 +135,4 @@ def test_check_collisions_with_big_dot(maze_instance, mocker):
     # Assert
     assert score == 50  # Score should increase by 50 after colliding with a big dot
     assert power is True  # Power should be activated after colliding with a big dot
-        # Additional assertions can be added to test other aspects of the method
+    # Additional assertions can be added to test other aspects of the method

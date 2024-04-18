@@ -25,13 +25,14 @@ def test_heart_draw(heart_instance, mocker):
     mock_screen.blit.assert_called_once_with(heart_instance.image, heart_instance.rect)
 
 
-
-
-@pytest.mark.parametrize("initial_lives_count, expected_lives_count", [
-    (0, 1),  # Test when initial lives count is 0
-    (2, 3),  # Test when initial lives count is 2
-    (-1, 0), # Test when initial lives count is negative
-])
+@pytest.mark.parametrize(
+    "initial_lives_count, expected_lives_count",
+    [
+        (0, 1),  # Test when initial lives count is 0
+        (2, 3),  # Test when initial lives count is 2
+        (-1, 0),  # Test when initial lives count is negative
+    ],
+)
 def test_hit(heart_instance, mock_maze, initial_lives_count, expected_lives_count):
     mock_maze.player.lives_count = initial_lives_count
     heart_instance.hit()

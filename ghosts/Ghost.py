@@ -4,6 +4,7 @@ from board import boards
 from Observer import Observer
 import path
 
+
 class Ghost(Observer, ABC):
     def __init__(self, x, y, direction, image, player, powerup_player):
         self.x = x
@@ -20,15 +21,17 @@ class Ghost(Observer, ABC):
         self.direction = direction
         self.powerup = False
         self.powerup_player = powerup_player
-        self.normal_img = pygame.transform.scale(pygame.image.load(image),
-                                                 (self.width, self.height))
-        self.powerup_img = pygame.transform.scale(pygame.image.load(path.ghosts_image[4]),
-                                                  (self.width, self.height))
+        self.normal_img = pygame.transform.scale(
+            pygame.image.load(image), (self.width, self.height)
+        )
+        self.powerup_img = pygame.transform.scale(
+            pygame.image.load(path.ghosts_image[4]), (self.width, self.height)
+        )
         self.image = self.normal_img
 
     def can_move(self, width, height):
-        num1 = ((height - 50) // 32)
-        num2 = (width // 30)
+        num1 = (height - 50) // 32
+        num2 = width // 30
         num3 = 1
         self.turns = [False, False, False, False]
         if 0 < self.x < width - self.width and 0 < self.y < height - self.height:
@@ -58,18 +61,20 @@ class Ghost(Observer, ABC):
             self.image = self.normal_img
 
     def draw(self, screen):
-        '''
+        """
         Draws the ghost on the screen
             :param screen:
             :return:
-        '''
+        """
         if not self.powerup:
             screen.blit(self.image, (self.x, self.y))
 
         else:
             screen.blit(self.powerup_img, (self.x, self.y))
 
-        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)  # change hitbox coordinates
+        self.hitbox = pygame.Rect(
+            self.x, self.y, self.width, self.height
+        )  # change hitbox coordinates
         # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
         ghost_rect = pygame.rect.Rect((self.x + 4, self.y + 4), (36, 36))
@@ -83,10 +88,10 @@ class Ghost(Observer, ABC):
 
     @abstractmethod
     def hit(self):
-        '''
+        """
         This function is called when the ghost is hit by the player
         :return:
-        '''
+        """
         self.powerup = False
         self.image = self.normal_img
 

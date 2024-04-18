@@ -1,7 +1,4 @@
-from abc import ABC, abstractmethod
-
-
-class Observable(ABC):
+class Observable():
     observers = []
 
     def register_observer(self, observer):

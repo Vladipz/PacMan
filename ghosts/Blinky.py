@@ -1,11 +1,13 @@
-import pygame.image
 from ghosts.Ghost import Ghost
 from Player import Player
 import path
 
+
 class Blinky(Ghost):
     def __init__(self, player):
-        super().__init__(56, 58, 0, path.ghosts_image[0], player, Player(100, -50, 0, 0, 0, None))
+        super().__init__(
+            56, 58, 0, path.ghosts_image[0], player, Player(100, -50, 0, 0, 0, None)
+        )
 
     def hit(self):
         super().hit()
