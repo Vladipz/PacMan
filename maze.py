@@ -14,6 +14,7 @@ from Observable import Observable
 
 PI = math.pi
 
+
 class Maze(Observable):
     def __init__(self, color, width, height, screen):
         self.player = Player(450, 663, 3, 0, 2, self)
@@ -86,7 +87,7 @@ class Maze(Observable):
 
     def check_heart_spawn(self):
         """
-        Checks if hearts can be spawned        
+        Checks if hearts can be spawned
         :return: None
         """
         half = self.count_of_points // 2
