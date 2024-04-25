@@ -86,7 +86,7 @@ class Maze(Observable):
 
     def check_heart_spawn(self):
         """
-        Checks if hearts can be spawned        
+        Checks if hearts can be spawned
         :return: None
         """
         half = self.count_of_points // 2
@@ -236,6 +236,9 @@ class Maze(Observable):
                 (player_x, player_y),
             )
         elif direction == 3:
+            self.screen.blit(pygame.transform.rotate(player_images[counter % len(player_images)], 270),
+                             (player_x, player_y))
+
             self.screen.blit(
                 pygame.transform.rotate(
                     player_images[counter % len(player_images)], 270
