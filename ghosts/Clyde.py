@@ -1,11 +1,13 @@
-import pygame
 from Player import Player
 from ghosts.Ghost import Ghost
 import path
 
+
 class Clyde(Ghost):
     def __init__(self, player):
-        super().__init__(440, 338, 2, path.ghosts_image[1], player, Player(800, -50, 0, 0, 0, None))
+        super().__init__(
+            440, 338, 2, path.ghosts_image[1], player, Player(800, -50, 0, 0, 0, None)
+        )
         # super().__init__(170, 200, 2, image, player)
 
     def hit(self):

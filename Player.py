@@ -2,7 +2,6 @@ import pygame.transform
 import pygame
 import path
 
-# from main import width, height
 
 class Player(object):
     def __init__(self, x, y, lives_count, direction, player_speed, maze):
@@ -22,15 +21,13 @@ class Player(object):
         self.hitbox.size = (30, 30)
         self.width = 30
         self.height = 30
-        # self.hitbox = pygame.draw.circle(pygame.display.get_surface(), (255, 0, 0), (self.center_x, self.center_y), 23, 2)
         self.hitbox.center = self.x + 23, self.y + 24
 
-    def hit(self, screen: pygame.Surface):
+    def hit(self):
         """
         This function is called when the player is hit by the ghost
         :return:
         """
-        
         self.x = 450
         self.y = 663
         for i in range(len(self.maze.ghosts)):

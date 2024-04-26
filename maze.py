@@ -14,6 +14,7 @@ from Observable import Observable
 
 PI = math.pi
 
+
 class Maze(Observable):
     def __init__(self, color, width, height, screen):
         self.player = Player(450, 663, 3, 0, 2, self)
