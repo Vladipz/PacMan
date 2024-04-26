@@ -1,10 +1,13 @@
 import pytest
 
 
-@pytest.mark.parametrize("width, height, expected_turns", [
-    (800, 600, [False, True, True, True]),
-    (400, 500, [True, False, True, False]),
-])
+@pytest.mark.parametrize(
+    "width, height, expected_turns",
+    [
+        (800, 600, [False, True, True, True]),
+        (400, 500, [True, False, True, False]),
+    ],
+)
 def test_can_move(blinky, width, height, expected_turns):
     blinky.can_move(width=width, height=height)
     assert blinky.turns == expected_turns
@@ -31,6 +34,7 @@ def test_blinky_move(blinky):
     blinky.move()
     assert blinky.x == 52
     assert blinky.y == 50
+
 
 @pytest.mark.xfail
 def test_ghost_hit(blinky):
