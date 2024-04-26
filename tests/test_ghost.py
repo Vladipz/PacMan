@@ -31,3 +31,9 @@ def test_blinky_move(blinky):
     blinky.move()
     assert blinky.x == 52
     assert blinky.y == 50
+
+@pytest.mark.xfail
+def test_ghost_hit(blinky):
+    initial_powerup_state = blinky.powerup
+    blinky.hit()
+    assert blinky.powerup != initial_powerup_state
